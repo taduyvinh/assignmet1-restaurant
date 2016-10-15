@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<p>Thank you for your order!</p>
 
 <p>
   <strong>Username</strong>
@@ -9,6 +9,10 @@
   <strong>Address</strong>
   <%= @order.address %>
 </p>
+
+<%= @food_item.name %>
+<%= @food_item.price + 20000 %> 
+<%= @order.created_at.strftime("%A, %d , %Y, %H:%M ") %>
 
 
 

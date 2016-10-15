@@ -12,21 +12,23 @@ class OrdersController < ApplicationController
 
   def create
     @food_item =  FoodItem.find params[:food_item_id] 
-    @order = Order.new
-
-    respond_to do |format|
-      if @order.save
-        format.html { redirect_to @order, notice: 'Thank you for your order.' }
-        format.json { render :show, status: :created, location: @order }
-      else
-        format.html { render :new }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
-      end
+    @order = Order.new(order_params)
+    @order.food_item = @food_item
+    if @order.save 
+    flash[:success] = "Created Order!"
+    redirect_to food_item_order_path(@food_item, @order)
+    else
+    flash[:error] = "Order not submitted!"
+    redirect_to menu_path
     end
+  end
+  def show
+      @order = Order.find params[:id]
+      @food_item = FoodItem.find params[:food_item_id]
   end
   
   def order_params
-      param.require(:order).permit(:username, :phonenumber, :addressn_id)
+      params.require(:order).permit(:username, :phonenumber, :address)
   end
 
 end
