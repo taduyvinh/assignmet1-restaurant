@@ -1,7 +1,12 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Food Items</h1>
+  
 
+
+
+<%= link_to "Sort by name", food_items_path(sort_by: :name) %>
+<%= link_to "Sort by price", food_items_path(sort_by: :price) %>
 <table>
   <thead>
     <tr>
@@ -21,7 +26,8 @@
         <td><%= food_item.description %></td>
         <td><%= food_item.price %></td>
         <td><%= food_item.image_url %></td>
-        <td><%= food_item.section %></td>
+        <td><%= food_item.section.name %></td>
+        
         <td><%= link_to 'Show', food_item %></td>
         <td><%= link_to 'Edit', edit_food_item_path(food_item) %></td>
         <td><%= link_to 'Destroy', food_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -29,6 +35,8 @@
     <% end %>
   </tbody>
 </table>
+
+ 
 
 <br>
 

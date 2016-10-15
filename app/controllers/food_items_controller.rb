@@ -4,8 +4,18 @@ class FoodItemsController < ApplicationController
   # GET /food_items
   # GET /food_items.json
   def index
-    @food_items = FoodItem.all
+   @food_items = FoodItem.includes(:section)
+   if params[:search]
+      @food_items = @food_items.search(params[:search]).order("name")
+   else
+        if params[:sort_by]
+          @food_items = @food_items.order params[:sort_by]
+        else
+          @food_items = @food_items.all.order 'name'
+        end 
+   end   
   end
+
 
   # GET /food_items/1
   # GET /food_items/1.json
